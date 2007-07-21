@@ -1,4 +1,5 @@
 #summary First page, using an example of the wiki functionality.
+#labels Featured
 
 = Introduction =
 
@@ -13,4 +14,3 @@ Add your content here.  Format your content with:
   * Automatic links to other wiki pages
 
 I wonder where this page goes?
-
