@@ -1,0 +1,16 @@
+#summary First page, using an example of the wiki functionality.
+
+= Introduction =
+
+Add your content here. This is the content of my first page. I have just created the project, and I am trying out the features.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+I wonder where this page goes?
+
