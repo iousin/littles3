@@ -5,7 +5,7 @@
 
 = Introduction =
 
-LittleS3 is distributed as a WAR file designed to be installed and run from a Java-based application server. This documentation uses [http://tomcat.apache.org/ Tomcat] as an example. The goal is to install littleS3 and be able to manually store objects within the application.
+[http://code.google.com/p/littles3/ LittleS3] is distributed as a WAR file designed to be installed and run from a Java-based application server. This documentation uses [http://tomcat.apache.org/ Tomcat] as an example. The goal is to install littleS3 and be able to manually store objects within the application.
 
 = Installation =
 
