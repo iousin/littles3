@@ -55,7 +55,7 @@ The littleS3 application is [http://code.google.com/p/littles3/downloads/list di
 A WAR file can be deployed to a default Tomcat instance by placing the WAR file in the "`tomcat home directory/webapps`" directory. Tomcat will automatically unpack and deploy the WAR. This will make the littleS3 application available at the URL:
 
 http://localhost:8080/littleS3-2.1.0/
-  
+
 Where "`localhost:8080`" is the host and default port that Tomcat uses.
 
 There are more advanced Tomcat deployment options that allow you to control the "`context path`", the "`/littleS3-2.1.0`" portion of the URL. You could deploy to a context path of "`/littleS3`", or even to the Tomcat root, so the context path would be "`/`". The context path is important when crafting the URL to access littlS3, as the [http://docs.amazonwebservices.com/AmazonS3/2006-03-01/ S3 protocol] uses URL components to create buckets.
