@@ -1,0 +1,105 @@
+#summary Basic background for using a littleS3 server
+#labels Phase-Deploy,Featured
+
+<wiki:toc max_depth="3" />
+
+= Getting Started =
+
+== Introduction ==
+
+LittleS3 is distributed as a WAR file designed to be installed and run from a Java-based application server. This documentation uses [http://tomcat.apache.org/ Tomcat] as an example. The goal is to install littleS3 and be able to manually store objects within the application.
+
+== Installation ==
+
+=== Tomcat ===
+
+To start, download and install [http://tomcat.apache.org/ Tomcat] as appropriate for your environment.
+
+=== Configuration files ===
+
+LittleS3 uses two configuration files by default: `StorageEngine.properties` and `StorageEngine-servlet.xml`. These configuration files are loaded automatically from the classpath.
+
+=== Custom classpath ===
+
+You can modify the Tomcat start up script to modify the default. For example...
+
+In the tomcat home directory, `C:\apps\apache-tomcat-5.5.23` for instance, create a new directory named "`settings`".
+
+Edit the `catalina.bat` file, found in the "`tomcat home directory/bin`" directory, adding:
+
+{{{
+rem Extra classpath environment stuff
+set CLASSPATH=%CLASSPATH%;C:\apps\apache-tomcat-5.5.23\settings
+}}}
+
+to this section:
+
+{{{
+:noJsse
+set CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\bin\bootstrap.jar
+
+rem Extra classpath environment stuff
+set CLASSPATH=%CLASSPATH%;C:\apps\apache-tomcat-5.5.23\settings
+
+if not "%CATALINA_BASE%" == "" goto gotBase
+set CATALINA_BASE=%CATALINA_HOME%
+:gotBase
+}}}
+
+The two configuration files `StorageEngine.properties` and `StorageEngine-servlet.xml` can now be placed in the new directory "`settings`".
+
+=== Deploy war ===
+
+The littleS3 application is distributed as a WAR file. The WAR packaging follows the pattern
+
+`littleS3-[version].war`: `littleS3-2.1.0.war` for instance.
+
+A WAR file can be deployed to a default Tomcat instance by placing the WAR file in the "`tomcat home directory/webapps`" directory. Tomcat will automatically unpack and deploy the WAR. This will make the littleS3 application available at the URL:
+
+http://localhost:8080/littleS3-2.1.0/
+  
+Where "`localhost:8080`" is the host and default port that Tomcat uses.
+
+There are more advanced Tomcat deployment options that allow you to control the "`context path`", the "`/littleS3-2.1.0`" portion of the URL. You could deploy to a context path of "`/littleS3`", or even to the Tomcat root, so the context path would be "`/`". The context path is important when crafting the URL to access littlS3, as the [http://docs.amazonwebservices.com/AmazonS3/2006-03-01/ S3 protocol] uses URL components to create buckets.
+
+== Configuration ==
+
+There are two configuration files for littleS3: `StorageEngine-servlet.xml` and `StorageEngine.properties`.
+
+ * `StorageEngine-servlet.xml` is a Spring Framework bean wiring configuration file. This controls the component makeup of the application. You typically don't have to change the configuration values in this file.
+ * `StorageEngine.properties` is a configuration file that is consumed by components configured in the `StorageEngine-servlet.xml` configuration file.
+
+=== Property Names ===
+
+<dl>
+<dt>host</dt>
+<dd>May include a "token" of `$resolvedLocalHost$` to have the system "resolve" the local host value. For instance, `$resolvedLocalHost$:8080`. This would use the Java methods [http://java.sun.com/j2se/1.5.0/docs/api/java/net/InetAddress.html#getCanonicalHostName() InetAddress.getLocalHost().getCanonicalHostName()] to determine what the local value of the hostname is. Used by `com.jpeterson.littles3.StorageEngine`. Example: `www.myserver.com:8080`</dd>
+
+<dt>storageLocation</dt>
+<dd>Identifies the local file system storage location that will subsequently be used for objects and metadata. This directory should already exist. Used by `com.jpeterson.littles3.dao.je.JeCentral`, `com.jpeterson.littles3.dao.filesystem.FileBucketDao`, `com.jpeterson.littles3.dao.filesystem.FileS3ObjectDao`. Example: `C:/temp/StorageEngine`</dd>
+
+<dt>dir.buckets</dt>
+<dd>Identifies the directory under `storageLocation/dir.meta` that will be used to store bucket information. Used by `com.jpeterson.littles3.dao.filesystem.FileBucketDao`. Default value: `buckets`. Example: `buckets`</dd>
+  
+<dt>dir.db</dt>
+<dd>Directory under `storageLocation` that will be used for to store the [http://www.oracle.com/database/berkeley-db/je/index.html Oracle Berkeley DB Java Edition (JE)] database based data. Used by `com.jpeterson.littles3.dao.je.JeCentral`. Example: `db`</dd>
+
+<dt>dir.meta</dt>
+<dd>Identifies the directory under `storageLocation` that will be used to store meta information. Used by `com.jpeterson.littles3.dao.filesystem.FileBucketDao`, `com.jpeterson.littles3.dao.filesystem.FileS3ObjectDao`. Default value: `meta`. Example: `meta`</dd>
+  
+<dt>dir.objects</dt>
+<dd>Identifies the directory under `storageLocation/dir.meta` that will be used to store object information. Used by `com.jpeterson.littles3.dao.filesystem.FileS3ObjectDao`. Default value: `objects`. Example: `objects`</dd>
+  
+<dt>db.object</dt>
+<dd>Directory under `storageLocation/dir.db` where the object information is stored in an [http://www.oracle.com/database/berkeley-db/je/index.html Oracle Berkeley DB Java Edition (JE)] database. Used by `com.jpeterson.littles3.dao.je.JeCentral`. Example: `objectDatabase`</dd>
+
+<dt>db.bucket</dt>
+<dd>Directory under `storageLocation/dir.db` where the bucket information is stored in an [http://www.oracle.com/database/berkeley-db/je/index.html Oracle Berkeley DB Java Edition (JE)] database. Used by `com.jpeterson.littles3.dao.je.JeCentral`. Example: `bucketDatabase`</dd>
+  
+<dt>user.file</dt>
+<dd></dd>
+</dl>
+
+= Source =
+
+The source is divided into 4 different components: `api`, `webapp`, `filesystem` module, and `je` module. The `api` component provides the common objects used by the system. The `webapp` is the collection of the other components into a runnable system. The `filesystem` and `je` modules provide different persistent storage options. The `filesystem` module stores the persistent data using plain files in the file system. The `je` module store stores the persistent data using the [http://www.oracle.com/database/berkeley-db/je/index.html Oracle Berkeley DB Java Edition (JE)] database.
