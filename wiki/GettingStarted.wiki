@@ -3,23 +3,21 @@
 
 <wiki:toc max_depth="3" />
 
-= Getting Started =
-
-== Introduction ==
+= Introduction =
 
 LittleS3 is distributed as a WAR file designed to be installed and run from a Java-based application server. This documentation uses [http://tomcat.apache.org/ Tomcat] as an example. The goal is to install littleS3 and be able to manually store objects within the application.
 
-== Installation ==
+= Installation =
 
-=== Tomcat ===
+== Tomcat ==
 
 To start, download and install [http://tomcat.apache.org/ Tomcat] as appropriate for your environment.
 
-=== Configuration files ===
+== Configuration files ==
 
 LittleS3 uses two configuration files by default: `StorageEngine.properties` and `StorageEngine-servlet.xml`. These configuration files are loaded automatically from the classpath.
 
-=== Custom classpath ===
+== Custom classpath ==
 
 You can modify the Tomcat start up script to modify the default. For example...
 
@@ -48,7 +46,7 @@ set CATALINA_BASE=%CATALINA_HOME%
 
 The two configuration files `StorageEngine.properties` and `StorageEngine-servlet.xml` can now be placed in the new directory "`settings`".
 
-=== Deploy war ===
+== Deploy war ==
 
 The littleS3 application is distributed as a WAR file. The WAR packaging follows the pattern
 
@@ -62,14 +60,14 @@ Where "`localhost:8080`" is the host and default port that Tomcat uses.
 
 There are more advanced Tomcat deployment options that allow you to control the "`context path`", the "`/littleS3-2.1.0`" portion of the URL. You could deploy to a context path of "`/littleS3`", or even to the Tomcat root, so the context path would be "`/`". The context path is important when crafting the URL to access littlS3, as the [http://docs.amazonwebservices.com/AmazonS3/2006-03-01/ S3 protocol] uses URL components to create buckets.
 
-== Configuration ==
+= Configuration =
 
 There are two configuration files for littleS3: `StorageEngine-servlet.xml` and `StorageEngine.properties`.
 
  * `StorageEngine-servlet.xml` is a Spring Framework bean wiring configuration file. This controls the component makeup of the application. You typically don't have to change the configuration values in this file.
  * `StorageEngine.properties` is a configuration file that is consumed by components configured in the `StorageEngine-servlet.xml` configuration file.
 
-=== Property Names ===
+== Property Names ==
 
 <dl>
 <dt>host</dt>
