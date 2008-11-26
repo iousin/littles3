@@ -15,7 +15,7 @@ To start, download and install [http://tomcat.apache.org/ Tomcat] as appropriate
 
 == Configuration files ==
 
-LittleS3 uses two configuration files by default: `StorageEngine.properties` and `StorageEngine-servlet.xml`. These configuration files are loaded automatically from the classpath.
+[http://code.google.com/p/littles3/ LittleS3] uses two configuration files by default: `StorageEngine.properties` and `StorageEngine-servlet.xml`. These configuration files are loaded automatically from the classpath.
 
 == Custom classpath ==
 
