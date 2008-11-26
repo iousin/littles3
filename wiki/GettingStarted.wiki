@@ -48,7 +48,7 @@ The two configuration files `StorageEngine.properties` and `StorageEngine-servle
 
 == Deploy war ==
 
-The littleS3 application is distributed as a WAR file. The WAR packaging follows the pattern
+The littleS3 application is [http://code.google.com/p/littles3/downloads/list distributed] as a WAR file. The WAR packaging follows the pattern
 
 `littleS3-[version].war`: `littleS3-2.1.0.war` for instance.
 
