@@ -62,7 +62,7 @@ There are more advanced Tomcat deployment options that allow you to control the 
 
 = Configuration =
 
-There are two configuration files for littleS3: `StorageEngine-servlet.xml` and `StorageEngine.properties`.
+There are two configuration files for littleS3: [http://littles3.googlecode.com/files/StorageEngine-servlet.xml StorageEngine-servlet.xml] and [http://littles3.googlecode.com/files/StorageEngine.properties StorageEngine.properties].
 
  * `StorageEngine-servlet.xml` is a Spring Framework bean wiring configuration file. This controls the component makeup of the application. You typically don't have to change the configuration values in this file.
  * `StorageEngine.properties` is a configuration file that is consumed by components configured in the `StorageEngine-servlet.xml` configuration file.
@@ -95,7 +95,7 @@ There are two configuration files for littleS3: `StorageEngine-servlet.xml` and 
 <dd>Directory under `storageLocation/dir.db` where the bucket information is stored in an [http://www.oracle.com/database/berkeley-db/je/index.html Oracle Berkeley DB Java Edition (JE)] database. Used by `com.jpeterson.littles3.dao.je.JeCentral`. Example: `bucketDatabase`</dd>
   
 <dt>user.file</dt>
-<dd></dd>
+<dd>Sample configuration file: [http://littles3.googlecode.com/files/users.config users.config]</dd>
 </dl>
 
 = Source =
